@@ -21,35 +21,39 @@
     <div>
       <form name="userForm">
         <div layout-gt-sm="row">
-          <md-autocomplete flex="" required="true" md-input-name="autocompleteField" md-input-minlength="2" md-no-cache="true" md-selected-item="ctrl.selectedItem" md-search-text="recipient.name" md-require-match="" md-items="item in ctrl.nameSearch(recipient.name)" md-item-text="item.name" md-floating-label="Name">
+          <md-autocomplete flex="" required="true" md-input-name="nameField" md-input-minlength="2" md-no-cache="true" md-selected-item="ctrl.selectedItem" md-search-text="recipient.name" md-require-match="" md-items="item in ctrl.nameSearch(recipient.name)" md-item-text="item.name" md-floating-label="Name">
             <md-item-template>
               <span md-highlight-text="ctrl.searchText">{{item}}</span>
             </md-item-template>
-            <div ng-messages="userForm.autocompleteField.$error" ng-if="userForm.autocompleteField.$touched">
-              <div ng-messages-include="form-messages">
+            <div ng-messages="userForm.nameField.$error" ng-if="userForm.nameField.$touched">
                 <div ng-message="required">You <b>must</b> enter a name.</div>
-              </div>
             </div>
           </md-autocomplete>
         </div>
 
-        <md-autocomplete flex="" required="false" md-input-name="autocompleteField" md-input-minlength="2" md-no-cache="true" md-selected-item="ctrl.selectedItem" md-search-text="recipient.sms" md-items="item in ctrl.smsSearch(recipient.name)" md-item-text="item.name" md-floating-label="Phone Number">
+        <md-autocomplete flex="" required="false" md-input-name="phoneField" md-no-cache="true" md-selected-item="ctrl.selectedItem" md-search-text="recipient.sms" md-items="item in ctrl.smsSearch(recipient.name)" md-item-text="item.name" md-floating-label="Phone Number">
           <md-item-template>
             <span md-highlight-text="ctrl.searchText">{{item}}</span>
           </md-item-template>
-          <div ng-messages="userForm.autocompleteField.$error" ng-if="userForm.autocompleteField.$touched">
+          <div ng-messages="userForm.phoneField.$error" ng-if="userForm.phoneField.$touched">
             <div ng-messages-include="form-messages">
-              <div ng-message="!email && !sms">You <b>must</b> enter a phone number or email.</div>
-              <div ng-message="evaluateSMS(recipient.sms)">Invalid phone format</div>
+              <div ng-if="!email && !sms">You <b>must</b> enter a phone number or email.</div>
+              <div ng-if="!evaluateSMS(recipient.sms) && recipient.sms.length > 1">Invalid phone format</div>
             </div>
           </div>
         </md-autocomplete>
 
         <div layout-gt-sm="row">
-          <md-input-container class="md-block" flex-gt-sm="">
-            <label>E-mail</label>
-            <input ng-model="recipient.email">
-          </md-input-container>
+          <md-autocomplete flex="" required="false" md-input-name="emailField" md-input-minlength="2" md-no-cache="true" md-selected-item="ctrl.selectedItem" md-search-text="recipient.email" md-items="item in ctrl.smsSearch(recipient.name)" md-item-text="item.name" md-floating-label="E-mail">
+            <md-item-template>
+              <span md-highlight-text="ctrl.searchText">{{item}}</span>
+            </md-item-template>
+            <div ng-messages="userForm.emailField.$error" ng-if="userForm.emailField.$touched">
+              <div ng-messages-include="form-messages">
+                <div ng-if="!email && !sms">You <b>must</b> enter a phone number or email.</div>
+                <div ng-messages="email">Invalid email.</div>
+              </div>
+            </div>
         </div>
 
         <md-input-container class="md-block">
