@@ -1,45 +1,13 @@
 var app = angular.module("users")
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
 
-    $routeProvider.when('/login',
+    $routeProvider.when('/app',
         {
-          templateUrl:    'login.html'
+          templateUrl:    'app.html'
         });
-    $routeProvider.when('/home',
+       $routeProvider.otherwise(
     {
-      templateUrl:    'src/home/view/home.html'
-    });
-    $routeProvider.when('/courses',
-    {
-      templateUrl:    'src/courses/view/courses.html'
-    });
-    $routeProvider.when('/courses/tutors-profile',
-    {
-          templateUrl:    'src/tutors/view/tutors-profile.html'
-    });
-    $routeProvider.when('/groups',
-    {
-      templateUrl:    'src/groups/view/groups.html'
-    });
-    $routeProvider.when('/tutors',
-    {
-          templateUrl:    'src/tutors/view/tutors.html'
-    });
-    $routeProvider.when('/settings',
-    {
-          templateUrl:    'src/settings/view/settings.html'
-    });
-    $routeProvider.when('/verify',
-    {
-          templateUrl:    'verify.html'
-    });
-    $routeProvider.when('/inbox',
-    {
-          templateUrl:    'src/inbox/view/inbox.html'
-    });
-    $routeProvider.otherwise(
-    {
-      redirectTo:     '/login'
+      redirectTo:     '/app'
     }
   );
 });
@@ -56,27 +24,3 @@ app.controller('NavCtrl',
   };
 }]);
 
-app.controller('CoursesCtrl', function($scope, $compile) {
-
-
-});
-
-app.controller('GroupsCtrl', function($scope, $compile) {
-
-
-});
-
-app.controller('TutorsCtrl', function($scope, $compile) {
-
-
-});
-
-app.controller('HomeCtrl', function($scope, $compile) {
-
-});
-app.controller('SettingsCtrl', function($scope, $compile) {
-
-});
-app.controller('authenticationController', function($scope, $compile) {
-
-});
